@@ -94,16 +94,23 @@ WSGI_APPLICATION = 'config.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/3.1/ref/settings/#databases
 
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.mysql',
-        'NAME': env.str('DB_DATABASE'),
-        'USER': env.str('DB_USERNAME'),
-        'PASSWORD': env.str('DB_PASSWORD'),
-        'HOST': env.str('DB_HOST'),
-        'PORT': env.str('DB_PORT', '3306'),
+import dj_database_url
+
+if 'JAWSDB_MARIA_URL' in os.environ:
+    DATABASES = {
+        'default': dj_database_url.parse(os.environ.get('JAWSDB_MARIA_URL'))
     }
-}
+else:
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.mysql',
+            'NAME': env.str('DB_DATABASE'),
+            'USER': env.str('DB_USERNAME'),
+            'PASSWORD': env.str('DB_PASSWORD'),
+            'HOST': env.str('DB_HOST'),
+            'PORT': env.str('DB_PORT', '3306'),
+        }
+    }
 
 
 # Password validation
