@@ -1,0 +1,1 @@
+web: gunicorn vegeket.wsgi --log-file -
