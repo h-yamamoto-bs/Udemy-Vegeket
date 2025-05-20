@@ -40,7 +40,7 @@ SECRET_KEY = env.str('SECRET_KEY')  # 変更
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = env.bool('DEBUG')  # 変更
 
-ALLOWED_HOSTS = env.list('ALLOWED_HOSTS')  # 変更
+ALLOWED_HOSTS = ['localhost', '127.0.0.1', '.herokuapp.com']
 
 
 # Application definition
@@ -57,6 +57,7 @@ INSTALLED_APPS = [
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
+    'whitenoise.middleware.WhiteNoiseMiddleware',  # Heroku静的ファイル対応
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
@@ -141,7 +142,7 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.1/howto/static-files/
 
-STATIC_URL = '/static/'
+STATIC_URL = DASE_DIR / '/static/'
 
 STATICFILES_DIRS = [
     BASE_DIR / 'static',  # 追記
